@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Lethal Force - Esport Team</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0b0c10;
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: linear-gradient(90deg, #00f0ff, #007a8c);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 0 15px #00f0ff80;
+    }
+
+    header img {
+      height: 55px;
+      filter: drop-shadow(0 0 6px #00f0ff);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: black;
+      text-shadow: 0 0 5px #00f0ff, 0 0 15px #00f0ff;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      left: 0;
+      bottom: -4px;
+      background: #00f0ff;
+      transition: 0.3s;
+      box-shadow: 0 0 10px #00f0ff;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: black;
+      margin: 4px 0;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links.active {
+      display: block;
+      position: absolute;
+      top: 65px;
+      right: 20px;
+      background: #1f1f1f;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00f0ff66;
+    }
+
+    .nav-links.active a {
+      display: block;
+      margin: 10px 0;
+      color: #00f0ff;
+    }
+
+    /* Containers */
+    .container {
+      width: 85%;
+      margin: 40px auto;
+      padding: 25px;
+      background: #1f1f1f;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00f0ff66;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-in-out;
+    }
+
+    .container.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .info-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .info-section img {
+      width: 120px;
+      height: auto;
+      filter: drop-shadow(0 0 10px #00f0ff);
+      animation: glow 2s infinite alternate;
+    }
+
+    h2 {
+      color: #00f0ff;
+      border-bottom: 2px solid #00f0ff;
+      padding-bottom: 5px;
+      text-shadow: 0 0 8px #00f0ff, 0 0 20px #00f0ff;
+    }
+
+    .roster {
+      text-align: center;
+    }
+
+    .roster img {
+      max-width: 420px;
+      width: 100%;
+      border-radius: 10px;
+      margin: 15px 0;
+      box-shadow: 0 0 25px #00f0ff80;
+      transition: transform 0.3s;
+    }
+
+    .roster img:hover {
+      transform: scale(1.05);
+    }
+
+    .networks ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .networks li {
+      margin: 10px 0;
+    }
+
+    .networks a {
+      text-decoration: none;
+      color: #00f0ff;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .networks a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px #00f0ff, 0 0 25px #00f0ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #0b0c10;
+      color: #888;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+
+    /* Animations */
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 5px #00f0ff); }
+      to { filter: drop-shadow(0 0 20px #00f0ff); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .info-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .info-section img {
+        margin-bottom: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="TLF Logo">
+    <h1>The Lethal Force</h1>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-links" id="menu">
+      <a href="#info">Info</a>
+      <a href="#roster">Roster</a>
+      <a href="#networks">Networks</a>
+      <a href="#join">Join</a>
+    </nav>
+  </header>
+
+  <div class="container" id="info">
+    <section class="info-section">
+      <img src="logo.png" alt="TLF Logo">
+      <div>
+         <h2>INFO ABOUT TLF</h2>
+        <p>About <strong> The Lethal Force </strong>⚔️#
+ </p>
+      </div>
+<p>
+ 
+<strong>The Lethal Force</strong> is a rising Esports Organization based in Germany, founded in May 2025 by <strong> Wlemir</strong> (Founder) and Novex (Co-Founder). What started as a vision quickly turned into a mission: to create not only competitive rosters that can perform on the highest level, but also a true home for players, fans, and supporters alike.
+
+From day one, our philosophy has been clear—Esports is more than just gaming. It is about teamwork, dedication, passion, and building a culture where every player and supporter feels like they are part of something bigger.
+
+Today, The Lethal Force is proud to represent three official rosters, including our talented TD-roster, competing with discipline, skill, and an unstoppable drive to improve. Each of our rosters embodies our values of commitment, growth, and sportsmanship.
+
+But what truly sets us apart is our community. In just a short time, we’ve built a growing family of fans and supporters who share our passion. They are the driving force behind what we do, and together, we work to create an atmosphere where everyone feels welcome, motivated, and inspired.
+
+Our mission is simple yet powerful:
+</p>
+✅ Build competitive teams that can leave a mark in the esports scene. </p>
+<p>
+</section>
+✅ Create a supportive and thriving community. <p>
+
+</section>
+✅ Deliver unforgettable experiences for fans and players alike. </p>
+<p>
+</section>
+We are still at the beginning of our journey, but our goals reach far beyond today. With every game, every roster, and every supporter, we are shaping the future of The Lethal Force.
+
+Thank you for standing with us. This is just the beginning.
+#GOTheLethalForce ⚡
+</div>
+        </p>
+     
+    </section>
+  </div>
+
+  <div class="container roster" id="roster">
+    <h2>Main Roster</h2>
+    <img src="roster.jpeg" alt="TLF Roster Poster">
+    <p><strong>Tier D</strong> and with greatest results !</p>
+    <p><strong>EMEA</strong></p>
+    <p><strong>Player 1:</strong> Bladrun</p>
+    <p><strong>Player 2:</strong> Räkan</p>
+    <p><strong>Player 3:</strong> Celianx</p>
+    <p><strong>Manager:</strong> Zenatinho</p>
+  </div>
+
+<div class="container roster" id="roster">
+   <h2>Academy Roster</h2>
+    <img src="rosteraca.jpeg" alt="TLF Roster Poster">
+    <p><strong>talented</strong> Academy Roster !</p>
+    <p><strong>EMEA</strong></p>
+    <p><strong>Player 1:</strong> Gabbu</p>
+    <p><strong>Player 2:</strong> Nikoko</p>
+    <p><strong>Player 3:</strong> keoseii</p>
+    <p><strong>Manager:</strong> Wlemir</p>
+ </div>
+
+  <div class="container networks" id="networks">
+  <h2>Our Networks</h2>
+  <ul>
+    <li>Discord : <a href="https://discord.gg/TPSQ6B7V" target="_blank">Join Here</a></li>
+    <li>YouTube : <a href="https://youtube.com/@thelethalforce-esports1?si=pb92Rdok5K6uxFd0" target="_blank">Watch Here</a></li>
+    <li>TikTok : <a href="https://www.tiktok.com/@the_lethal_force_tlf?_t=ZN-8zFn4w2RMTn&_r=1" target="_blank">Follow Us</a></li>
+  </ul>
+</div>
+
+  <div class="container" id="join">
+    <h2>Join Us!</h2>
+    <p>Come and be part of the <strong>TLF Family</strong>. Let's achieve greatness together! 🚀</p>
+  </div>
+
+  <footer>
+    <p>© 2025 The Lethal Force - All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Menu toggle
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("active");
+    }
+
+    // Scroll animation
+    const containers = document.querySelectorAll(".container");
+    window.addEventListener("scroll", () => {
+      containers.forEach(container => {
+        const position = container.getBoundingClientRect().top;
+        const screenHeight = window.innerHeight;
+        if (position < screenHeight - 100) {
+          container.classList.add("show");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
